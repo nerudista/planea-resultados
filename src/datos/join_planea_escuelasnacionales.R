@@ -43,7 +43,7 @@ colnames(data_municipios)
 
 data_municipios$municipio <- str_to_title(data_municipios$municipio)
 
-write.csv(data_municipios,"./datos/crudos/cct/planea_nacional_municipios.csv", 
+write.csv(data_municipios,"./datos/crudos/planea_nacional_municipios.csv", 
           sep = ";",
           fileEncoding = "UTF-8",
           row.names=FALSE #no index
