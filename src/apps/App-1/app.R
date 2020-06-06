@@ -22,6 +22,9 @@ data_municipios <- read_csv("./datos/crudos/planea_nacional_municipios.csv")
 
 
 data_municipios <- data_municipios %>% 
+  filter(planea_semaforo <= 4) %>%        #solo escuelas con resultados que permiten evaluar
+  select(-localidad,-planea_semaforo) %>% 
+  tidyr::drop_na() %>% 
   dplyr::rename(Insuficiente=matematicas_insuficiente_escuela,
                 Indispensable =  matematicas_indispensable_escuela,
                 Satisfactorio = matematicas_satisfactorio_escuela,
@@ -31,11 +34,10 @@ data_municipios <- data_municipios %>%
 entidades <- data_municipios %>% 
    distinct(entidad) 
          
-  
-            
+
  
  
-choices = setNames(entidades$entidad,entidades$entidad)
+#choices = setNames(entidades$entidad,entidades$entidad)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -60,6 +62,7 @@ ui <- fluidPage(
       mainPanel(
         plotOutput("linePlot"),
         
+        #tableOutput("dynamic")
         tableOutput("dynamic")
       )
      )
@@ -95,7 +98,7 @@ server <- function(input, output,session) {
   # })
   ###
   
-  columnas = c( 10,11,12,13)
+  columnas = c( 8,9,10,11)
   
   
   
@@ -110,7 +113,7 @@ server <- function(input, output,session) {
       dplyr::arrange(planea_rank_entidad) %>% 
       tibble::rowid_to_column("Ranking_Municipal") %>% 
       mutate(grupo= ifelse(Ranking_Municipal<=10,"Escuela Top 10","Fuera Top 10")) %>% 
-      filter(Ranking_Municipal <= 100) 
+      filter(Ranking_Municipal <= 200) 
     
     
     
@@ -139,21 +142,41 @@ server <- function(input, output,session) {
   
   
   
-  selected <- reactive({
-    localidad_seleccionada <- input$municipio
-    nivel_seleccionado <- input$nivel
-    
-    data_tabla <- data_municipios %>% 
-      filter(municipio==localidad_seleccionada,
-             nivel == nivel_seleccionado) %>% 
-      dplyr::arrange(planea_rank_entidad) %>% 
-      tibble::rowid_to_column("Ranking_Municipal") %>% 
-      filter(Ranking_Municipal <= 20) %>% 
-      select(Ranking_Municipal,nombre,municipio,Insuficiente,
-             Indispensable,Satisfactorio,Sobresaliente)
-                       })
+  # selected <- reactive({
+  #   localidad_seleccionada <- input$municipio
+  #   nivel_seleccionado <- input$nivel
+  #   
+  #   data_tabla <- data_municipios %>% 
+  #     filter(municipio==localidad_seleccionada,
+  #            nivel == nivel_seleccionado) %>% 
+  #     dplyr::arrange(planea_rank_entidad) %>% 
+  #     tibble::rowid_to_column("Ranking_Municipal") %>% 
+  #     filter(Ranking_Municipal <= 20) %>% 
+  #     select(Ranking_Municipal,nombre,municipio,Insuficiente,
+  #            Indispensable,Satisfactorio,Sobresaliente)
+  #                      })
   
-  output$dynamic <- renderTable(head(selected(),10))
+  #output$dynamic <- renderTable(head(selected(),10))
+  output$dynamic <- renderTable({
+      localidad_seleccionada <- input$municipio
+      nivel_seleccionado <- input$nivel
+      
+      data_tabla <- data_municipios %>% 
+            filter(municipio==localidad_seleccionada,
+                   nivel == nivel_seleccionado ) %>%  #nivel_seleccionado) %>%
+            dplyr::arrange(planea_rank_entidad) %>%
+            tibble::rowid_to_column("Ranking_Municipal") %>%
+            filter(Ranking_Municipal <= 20) %>%
+            select(Ranking_Municipal,nombre,municipio,Insuficiente,
+                   Indispensable,Satisfactorio,Sobresaliente) %>% 
+            rename("Ranking Municipal"=Ranking_Municipal,
+                   Nombre = nombre,
+                   Municipio = municipio)
+                             
+      
+    
+    })
+  
 }
 
 # Run the application 
