@@ -1,0 +1,13 @@
+name: planea-resultados
+title: planea-resultados
+username:
+account: nerudista
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2455284
+bundleId: 3270246
+url: https://nerudista.shinyapps.io/planea-resultados/
+when: 1592196803.20767
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .gitattributes|README.md|.github/workflows/greetings.yml|docs/.gitkeep

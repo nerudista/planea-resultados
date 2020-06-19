@@ -1,0 +1,12 @@
+name: Planea_resultados
+title: Planea_resultados
+username:
+account: nerudista
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2476289
+bundleId: 3290455
+url: https://nerudista.shinyapps.io/Planea_resultados/
+when: 1592543030.63986
+asMultiple: FALSE
+asStatic: FALSE

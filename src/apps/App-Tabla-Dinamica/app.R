@@ -17,9 +17,10 @@ pacman::p_load(tidyverse,
 
 
 
-setwd("~/GitHub/planea-resultados")
+#setwd("~/Documents/GitHub/planea-resultados")
 #cargo todos los archivos
 data_municipios <- read_csv("./datos/crudos/planea_nacional_municipios.csv")
+#data_municipios <- read_csv("https://www.kaggle.com/nerudista/planea-nacional-municipios/download")
 
 
 data_municipios <- data_municipios %>% 

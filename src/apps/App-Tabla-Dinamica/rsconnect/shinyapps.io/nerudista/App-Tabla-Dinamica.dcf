@@ -1,0 +1,12 @@
+name: App-Tabla-Dinamica
+title: App-Tabla-Dinamica
+username:
+account: nerudista
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2455386
+bundleId: 3270274
+url: https://nerudista.shinyapps.io/App-Tabla-Dinamica/
+when: 1592197533.3572
+asMultiple: FALSE
+asStatic: FALSE
