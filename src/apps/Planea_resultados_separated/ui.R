@@ -19,7 +19,8 @@ library(GGally)
 shinyUI(fluidPage(
 
     # Application title
-    titlePanel("Rendimiento por Escuela en Evaluaciones PLANEA"),
+    titlePanel("Rendimiento por Escuela en Evaluaciones PLANEA",
+               windowTitle = "PLANEA by nerudista"),
     
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
@@ -37,9 +38,14 @@ shinyUI(fluidPage(
         ),
         # Show a plot 
         mainPanel(
-            plotOutput("linePlot"),
-            br(), br(),
-            dataTableOutput("dynamic")
+            tabsetPanel( 
+                tabPanel( title = "Gráfica" ,
+                          plotOutput("linePlot")
+                          ),
+                tabPanel( title = "Tabla de datos",
+                          dataTableOutput("dynamic-mate")
+                          )
+            )
         )
     )
 )

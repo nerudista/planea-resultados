@@ -24,7 +24,9 @@ data_municipios <- data_municipios %>%
     dplyr::rename(Insuficiente=matematicas_insuficiente_escuela,
                   Indispensable =  matematicas_indispensable_escuela,
                   Satisfactorio = matematicas_satisfactorio_escuela,
-                  Sobresaliente = matematicas_sobresalientes_escuela) 
+                  Sobresaliente = matematicas_sobresalientes_escuela,
+                  CCT = cct,
+                  Nombre = nombre) 
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -80,7 +82,7 @@ shinyServer(function(input, output) {
         } 
         
         data_municipios %>% 
-            filter(entidad == "Aguascalientes",# input$entidadInput,
+            filter(entidad == input$entidadInput,
                    municipio==input$municipioInput,
                    nivel == input$nivel) %>% 
             dplyr::arrange(planea_rank_entidad) %>% 
@@ -128,7 +130,15 @@ shinyServer(function(input, output) {
 
     
     output$dynamic <- renderDataTable({
-        datatable(filtered())
+        datatable(filtered() %>% 
+                  select(-planea_year,-municipio) %>% 
+                  dplyr::rename(
+                      Entidad=entidad,
+                      Ranking_Entidad=planea_rank_entidad,
+                      Nivel=nivel,
+                      Grupo=grupo)
+                  
+                  )
     })
 
 })
