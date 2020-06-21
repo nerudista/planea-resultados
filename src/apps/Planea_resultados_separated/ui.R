@@ -42,8 +42,8 @@ shinyUI(fluidPage(
                 tabPanel( title = "Gráfica" ,
                           plotOutput("linePlot")
                           ),
-                tabPanel( title = "Tabla de datos",
-                          dataTableOutput("dynamic-mate")
+                tabPanel( title = "Tabla",
+                          dataTableOutput("dynamic")
                           )
             )
         )
