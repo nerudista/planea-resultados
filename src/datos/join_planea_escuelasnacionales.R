@@ -26,7 +26,8 @@ data_planea <- plyr::ldply(files, read.table,sep = ";",encoding = "UTF-8",fill=T
 
 columnas_usar = c("cct","nombre","localidad","entidad","nivel","planea_semaforo","planea_year",
                   "planea_rank_entidad","matematicas_insuficiente_escuela","matematicas_indispensable_escuela",
-                  "matematicas_satisfactorio_escuela","matematicas_sobresalientes_escuela")
+                  "matematicas_satisfactorio_escuela","matematicas_sobresalientes_escuela","espaniol_insuficiente_escuela",
+                  "espaniol_indispensable_escuela","espaniol_satisfactorio_escuela","espaniol_sobresalientes_escuela")
 
 data_localidad <- data_planea %>% 
   select(columnas_usar)
